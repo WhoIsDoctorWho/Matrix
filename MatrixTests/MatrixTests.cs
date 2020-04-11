@@ -65,11 +65,21 @@ namespace MatrixTests
         }
         [Test]
         public void TestSerialization()
-        {
-            string filePath = "D:\\github\\repo\\epam\\tasks\\task1\\MatrixTests\\TestFiles\\test.json";
+        {        
+            string filePath = @"D:\github\repo\epam\tasks\task1\MatrixCore\MatrixTests\TestFiles\test.json";
             MatrixSerializer.Serialize(matrix, filePath);
             Matrix deserialized = MatrixSerializer.Deserialize(filePath);
             Assert.AreEqual(matrix, deserialized);
+        }        
+        [Test]
+        public void TestICloneable()
+        {
+            Matrix clone = matrix.Clone() as Matrix;
+            Assert.NotNull(clone);
+            
+            clone[1, 1] = 73;
+            Assert.AreNotEqual(clone[1, 1], matrix[1, 1]);
+            Assert.AreNotEqual(clone, matrix);
         }
     }
 }
